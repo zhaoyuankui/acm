@@ -1,0 +1,40 @@
+#!/bin/bash
+
+function show_help() {
+    echo "Usage:"
+    echo "    ./create <name> [method]"
+    if [ $# -gt 0 -a "$1" -gt 0 ]; then
+        exit $1
+    fi
+}
+
+function create_file() {
+    mkdir "$1"
+    touch "$1/$1.go"
+    cat > "$1/$1.go" <<-_END
+		package main
+		
+		import "fmt"
+		
+		func main() {
+		    fmt.Println("FUNC")
+		    return
+		}
+	_END
+    if [ "$2" ]; then
+        sed -i 's/"FUNC"/'$2'()/g' "$1/$1.go"
+    fi
+}
+
+function run() {
+    if [ $# -lt 1 ]; then
+        show_help 1
+    fi
+    if [ -e "$1" ]; then
+        echo "File $1 already exist"
+        show_help 1
+    fi
+    create_file "${@}"
+}
+
+run "${@}"
