@@ -47,6 +47,7 @@ function run() {
         show_help 1
     fi
     dir_name=`echo $1 | sed -n 's/\([A-Z][A-Z]*\)/_\L\1/gp'`;
+    dir_name=${dir_name:-$1}
     if [ -e "$dir_name" ]; then
         echo "File $$dir_name already exist"
         show_help 1
