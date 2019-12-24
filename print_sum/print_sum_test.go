@@ -23,6 +23,7 @@ func Test_main(t *testing.T) {
 
 	// Check
 	alg.AssertEqual(t, "./test.out", []string{"3"})
+	alg.AssertEqual(t, "./test.out", []int{3})
 
 	os.Stdin, os.Stdout = stdin, stdout
 }
