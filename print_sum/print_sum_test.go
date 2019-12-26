@@ -10,8 +10,12 @@ import (
 
 func main() {
 	var a, b int
-	fmt.Scanf("%d %d", &a, &b)
-	fmt.Println(a + b)
+	for {
+		if _, err := fmt.Scanf("%d %d\n", &a, &b); err != nil {
+			break
+		}
+		fmt.Println(a + b)
+	}
 }
 
 func Test_main(t *testing.T) {
@@ -22,8 +26,8 @@ func Test_main(t *testing.T) {
 	main()
 
 	// Check
-	alg.AssertEqual(t, "./test.out", []string{"3"})
-	alg.AssertEqual(t, "./test.out", []int{3})
+	alg.AssertEqual(t, "./test.out", []string{"3", "7"})
+	alg.AssertEqual(t, "./test.out", []int{3, 7})
 
 	os.Stdin, os.Stdout = stdin, stdout
 }
